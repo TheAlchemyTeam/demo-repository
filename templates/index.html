@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>云天 | 天气预报</title>
+    <link rel="icon" href="icon.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,500;0,600;0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/script.js" defer></script>
+    <script src="js/location.js" defer></script>
+    <script src="js/custom-script.js" defer></script>
+</head>
+
+<body onload="myFunction()">
+    <div id="loading">Loading...</div>
+    <div class="cont">
+        <div class="one">
+            <h1>🌦️ Weather.io ☔️</h1>
+            <h1>
+                <div id="clock"></div>
+            </h1>
+        </div>
+    </div>
+
+    <div class="two">
+        <div class="card" data-tilt>
+            <div class="search">
+                <input type="text" class="search-bar" placeholder="Search" />
+                <button>
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em" width="1.5em" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"></path>
+                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <div class="suggestions" id="suggestions" style="display: none;"></div>
+            </div>
+            <div class="weather loading">
+                <div class="other">注意：请输入城市名拼音，首字母大写</div>
+                <h2 class="city">Weather in Shanghai</h2>
+                <h1 class="temp">21°C</h1>
+                <div class="flex">
+                    <img src="https://labfile.oss.aliyuncs.com/courses/8605/04d.png" alt="" class="icon" />
+                    <div class="description">多云</div>
+                </div>
+                <div class="other">
+                    <div class="humidity">湿度: 60%</div>
+                    <div class="wind">风速: 6.2 km/h</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="three">
+        <div class="name">
+            <a href="register.html" id="exploreMoreLink">TTPD</a>
+        </div>
+        <button id="scrollToTop" onclick="scrollToTop()">↑</button>
+    </div>
+    <script>
+        console.log("Page loaded, initializing preloader...");
+        var preloader = document.getElementById('loading');
+        function myFunction() {
+            console.log("Page fully loaded, showing content...");
+            document.getElementById('loading').style.display = 'none';
+            document.body.classList.add('loaded');
+            document.querySelector('.cont').classList.add('loaded');
+            document.querySelector('.two').classList.add('loaded');
+            document.querySelector('.three').classList.add('loaded');
+        }
+    </script>
+    <script type="text/javascript" src="js/vanilla-tilt.js"></script>
+    <script type="text/javascript">
+        console.log("Initializing VanillaTilt...");
+        VanillaTilt.init(document.querySelector(".card"), {
+            max: 15,
+            glare: true,
+            reverse: true,
+            "max-glare": 0.5,
+            speed: 400,
+            "mouse-event-element":".card"
+        });
+        VanillaTilt.init(document.querySelectorAll(".card"));
+    </script>
+    <script>
+        // 添加鼠标悬停事件
+        document.getElementById('exploreMoreLink').addEventListener('mouseover', function() {
+            this.textContent = '想探索更多？点击这里！';
+        });
+        document.getElementById('exploreMoreLink').addEventListener('mouseout', function() {
+            this.textContent = 'TTPD';
+        });
+    </script>
+</body>
+
+</html>
+
+
+<!-- 这是我的一个天气预测网站的html代码。在网页中间有一个小窗口，里面有一个输入栏。
+当输入城市的字段时，会有一个下拉栏，显示可能的城市。而这个小窗口有一个效果，当鼠标在窗口移动或悬浮时，会有一个倾斜的效果。
+但我现在希望是这样：下拉栏应该要遮挡盒子模型的内容，当鼠标在输入栏和下拉框悬停或移动时，整个窗口不应该触发倾斜，应保持静止状态 -->

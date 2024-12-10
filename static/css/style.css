@@ -1,0 +1,370 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  position: relative;
+  height: 100vh;
+  margin: 0; 
+  transition: background-image 1s ease-in-out, opacity 1s ease-in-out;
+  opacity: 0;
+}
+
+body.loaded {
+  opacity: 1;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow-x: auto; 
+  overflow-y: auto;
+}
+
+#loading {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background: #fff url("/loading.svg") no-repeat center;
+  z-index: 99999;
+  overflow-y: hidden; 
+}
+
+/* 页面内容的淡入效果 */
+.cont, .two, .three {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.cont.loaded, .two.loaded, .three.loaded {
+  opacity: 1;
+}
+
+.cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.one {
+  margin-top: 1.5em;
+  padding: 15px;
+  display: inline-block;
+  font-size: 20px;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  border-radius: 25px;
+  border-top: 2px solid rgba(255, 255, 255, 0.5);
+  border-left: 2px solid rgba(255, 255, 255, 0.5);
+  width: 30%;
+  background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+  text-align: center;
+  opacity: 0.9;
+}
+
+@media only screen and (max-width: 768px) {
+  .one {
+    width: auto;
+  }
+}
+
+.two {
+  display: flex;
+  height: 75vh;
+  top: 10%;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  position: relative;
+  box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  border-radius: 25px;
+  background: rgba(255,252,153,0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  color: black;
+  padding: 2em;
+  width: 100%;
+  max-width: 420px;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  margin: 1em;
+  backdrop-filter: blur(5px);
+}
+
+.search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+#clock {
+  font-size: 24px;
+  margin-top: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  position: relative;
+}
+
+.icon {
+  animation: rotates 2.5s linear infinite alternate;
+}
+
+@keyframes rotates {
+  from {
+    transform: translate(-0.4em);
+  }
+  to {
+    transform: translate(0.4em);
+  }
+}
+
+button {
+  margin: 0.5em;
+  border-radius: 50%;
+  border: none;
+  height: 46px;
+  width: 46px;
+  outline: none;
+  background: black;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+button:hover {
+  border: white 0.2em solid;
+  transition: 0.2s ease-in-out;
+}
+
+#scrollToTop {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+input.search-bar {
+  border: none;
+  outline: none;
+  padding: 0.5em 1em;
+  border-radius: 24px;
+  background: rgba(0, 0, 0, 0.1);
+  color: black;
+  font-size: 120%;
+  width: calc(70%);
+  border-top: 1px solid rgba(255, 255, 255, 0.8);
+  border-left: 1px solid rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(3px);
+}
+
+::placeholder {
+  color: black;
+  opacity: 0.7;
+}
+
+.card:after {
+  content: "";
+  display: block;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 11;
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes drift {
+  from {
+    transform: rotate(0deg);
+  }
+  from {
+    transform: rotate(360deg);
+  }
+}
+
+h2.city {
+  margin-top: 0.5em;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+h1.temp {
+  margin: 0;
+  font-size: 2em;
+  text-align: center;
+  margin-left: 0.1em;
+}
+
+.description {
+  text-transform: capitalize;
+  margin-left: 8px;
+}
+
+.flex {
+  display: flex;
+  justify-content: left;
+}
+
+.other {
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.weather.loading {
+  visibility: hidden;
+  max-height: 20px;
+  position: relative;
+  align-items: center;
+}
+
+.weather.loading:after {
+  visibility: visible;
+  content: "Loading...";
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 20px;
+}
+
+.three {
+  display: flex;
+  text-align: center;
+  align-items: flex-end;
+  justify-content: right;
+  position: relative;
+}
+
+a {
+  text-decoration-color: blueviolet;
+  color: black;
+}
+
+.name {
+  text-decoration: none;
+  color: black;
+  margin-left: auto;
+  font-weight: 700;
+  font-size: 1em;
+  padding: 15px;
+  overflow: hidden;
+  border-radius: 15px;
+  width: 15em;
+  background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+  opacity: 0.9;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeInAnimation 1s forwards;
+}
+
+@keyframes fadeInAnimation {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.forecast {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2em;
+}
+
+.weather-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  padding: 1em;
+  text-align: center;
+  border-radius: 15px;
+  color: white;
+  opacity: 0.8;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.day1 {
+  background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+  z-index: 3;
+  opacity: 0.7;
+}
+
+.day2 {
+  background: linear-gradient(120deg, #f8b500 0%, #ffcd3c 100%);
+  z-index: 2;
+  opacity: 0.6;
+}
+
+.day3 {
+  background: linear-gradient(120deg, #ff4e50 0%, #f9d423 100%);
+  z-index: 1;
+  opacity: 0.5;
+}
+
+.weather-layer:hover {
+  opacity: 1;
+  transform: scale(1.05);
+  z-index: 4;
+}
+
+.suggestions {
+  display: none;
+  z-index: 10000;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+  background-color: rgb(238, 196, 179);
+  width: calc(100%);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  /* pointer-events: none; */
+}
+
+/* .suggestions.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+} */
+
+

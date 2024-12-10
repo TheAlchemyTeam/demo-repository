@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather System</title>
+    <link rel="icon" href="./img/天气.png" type="image/png">
+    <style>
+        /* Ensure image covers the entire background */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Fullscreen background image */
+        #introImage {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensure the image is responsive */
+            z-index: -1;
+            opacity: 0;
+            animation: fadeIn 3s forwards;
+        }
+
+        /* Text container */
+        #textContainer {
+            position: absolute;
+            top: 30%;
+            width: 100%;
+            text-align: center;
+            color: white;
+        }
+
+        /* Title and typing effect */
+        h1 {
+            margin: 0;
+            font-size: 3em;
+            font-family: 'Arial Narrow', Arial, sans-serif;
+        }
+
+        #typingText {
+            font-size: 1.5em;
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-weight: bold;
+            margin-top: 20px;
+            color:whitesmoke;
+        }
+
+        #typingText::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Floating icon */
+        #scrollIcon {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 33px;  /* Smaller size (2/3 of the original size) */
+            height: 33px;
+            background-image: url('./img/arrow.png');
+            background-size: cover;
+            cursor: pointer;
+            animation: float 3s infinite ease-in-out, glow 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes glow {
+            0% { filter: brightness(50%); } /* Dark at the lowest point (deep gray) */
+            50% { filter: brightness(100%); } /* Bright at the highest point (white) */
+            100% { filter: brightness(50%); } /* Dark again at the lowest point */
+        }
+
+        /* Image fade-in effect */
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .fade-out {
+        animation: fadeOut 1s forwards;
+        }
+
+        @keyframes fadeOut{
+            from{ opacity: 1;}
+            to { opacity: 0;}
+        }
+
+        /* Raindrop effect */
+        /* .rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .drop {
+            position: absolute;
+            bottom: 100%;
+            width: 2px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        } */
+    
+        /* Rain effect */
+        .raindrop {
+            position: absolute;
+            width: 2px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.3);
+            animation: fall 1s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(-10vw, 100vh); /* Slant rain towards bottom-left */
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Background image -->
+    <img id="introImage" src="./img/city4.png" alt="Intro Image">
+
+    <!-- Text on top of image -->
+    <div id="textContainer">
+        <h1>天气可视化系统</h1>
+        <p id="typingText"></p>
+    </div>
+
+    <!-- Floating scroll icon (Arrow image) -->
+    <div id="scrollIcon"></div>
+
+    <!-- Raindrop container -->
+    <div class="rain"></div>
+
+    <script>
+        // Typing effect script
+        const typingText = document.getElementById('typingText');
+        const messages = ["Loading weather data...", "Please wait...","Your personal weather forecast"];
+        let index = 0, charIndex = 0;
+        
+        function typeMessage() {
+            if (charIndex < messages[index].length) {
+                typingText.innerHTML += messages[index].charAt(charIndex);
+                charIndex++;
+                setTimeout(typeMessage, 100);
+            } else {
+                setTimeout(() => {
+                    typingText.innerHTML = '';
+                    charIndex = 0;
+                    index = (index + 1) % messages.length;
+                    typeMessage();
+                }, 2000);
+            }
+        }
+        typeMessage();
+
+        // Scroll down on icon click
+        document.getElementById('scrollIcon').addEventListener('click', function() {
+            document.body.classList.add('fade-out');
+            setTimeout(function() {
+                window.location.href = 'index.html';  // Redirect to your weather system page
+            }, 1000);  // Duration matches the fade-out animation (1s)
+        });
+
+        // // Generate raindrops
+        // const rainContainer = document.querySelector('.rain');
+        // function createRaindrop() {
+        //     const drop = document.createElement('div');
+        //     drop.classList.add('drop');
+        //     drop.style.left = `${Math.random() * 100}vw`;
+        //     drop.style.animationDuration = `${Math.random() * 2 + 1}s`;  // Random speed
+        //     rainContainer.appendChild(drop);
+        //     setTimeout(() => drop.remove(), 3000);  // Remove drop after falling
+        // }
+        // setInterval(createRaindrop, 100);  // Create raindrops at intervals
+
+        // Create rain effect
+        function createRain() {
+        for (let i = 0; i < 150; i++) {
+            const raindrop = document.createElement('div');
+            raindrop.classList.add('raindrop');
+            raindrop.style.left = `${Math.random() * 100}vw`;
+            raindrop.style.top = `${Math.random() * -100}px`;
+            raindrop.style.animationDuration = `${Math.random() * 0.5 + 0.75}s`;
+            raindrop.style.opacity = `${Math.random() + 0.3}`;
+            document.body.appendChild(raindrop);
+         }
+        }
+
+        createRain();
+    </script>
+</body>
+</html>
