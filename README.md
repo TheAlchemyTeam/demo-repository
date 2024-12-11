@@ -1,4 +1,5 @@
-# Welcome to your organization's demo respository
-This code repository (or "repo") is designed to demonstrate the best GitHub has to offer with the least amount of noise.
-
-The repo includes an `index.html` file (so it can render a web page), two GitHub Actions workflows, and a CSS stylesheet dependency.
+# 欢迎来到我们天气系统项目
+##目前仍在测试阶段，会不断在完善、更新
+⚡下载相关文件后，你可以输入城市字段名称，然后查询该地的天气（精确到区！）
+🛠️其他文件主要是为正式投付运行做准备
+🌍如有更好想法，可以与我们进一步交流~
